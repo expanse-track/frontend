@@ -1,0 +1,10 @@
+.toddoCardStyle{
+    margin: auto;
+    margin-top: 20px;
+}
+
+.buttonSpacing{
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}

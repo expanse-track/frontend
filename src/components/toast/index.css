@@ -1,0 +1,14 @@
+.toastWrapperRow {
+  position:fixed;
+  bottom: 10px; 
+  text-align: center;
+  margin: 20px;
+  right:10px; 
+  
+}
+.toast {
+  margin: auto;
+  display: block;
+  width: 200px;  
+  background-color: #F1AEB5;
+}

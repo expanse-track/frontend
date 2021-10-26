@@ -1,0 +1,23 @@
+.statusRow {
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+
+.statusCardActive {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f1aeb5;
+}
+
+.statusCardCompleted {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #9ec5fe;
+}

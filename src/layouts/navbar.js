@@ -22,7 +22,7 @@ const AppNavBar = ({ children }) => {
           <Navbar.Brand href="#home">XYZ Todos</Navbar.Brand>
           <Nav className="me-auto ">
             <NavItem className="m-auto">
-              <Link className="nav-link" to="/home">
+              <Link className="nav-link" to="/overview">
                 Overview
               </Link>
             </NavItem>

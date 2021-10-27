@@ -3,9 +3,7 @@ import { baseURL } from '../config/apiConfig';
 
 const performRequest = async (method, url, data) => {
     const token = localStorage.getItem('xyz-todos') || '';
-    try {
-
-
+    try { 
         return await axios({
             baseURL: `${baseURL}`,
             url: url,
@@ -91,5 +89,16 @@ export const completeTodo = async (id) => {
     return await performRequest(
         'PUT',
         `todos/complete/${id}` 
+    );
+};
+
+
+
+//new api reqests 
+
+export const fetchAllAccounts  = async () => {
+    return await performRequest(
+        'GET',
+        'accounts/get',
     );
 };

@@ -2,8 +2,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import './index.css'
-import { Container } from 'react-bootstrap';
+import './index.css' 
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { loginReqest } from '../../helpers/apiHelper';
@@ -38,9 +37,8 @@ function Login() {
   return (
     <>
       <div className='login'>
-        <Container>
-          <div className='loginHeader'>Login </div> 
-
+         <div className='loginHeader'>Welocme </div>  
+         <div className='loginDescripation'>A powerfull way to track your income and expenses </div>  
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email' className='formGroup'>
               <Form.Label>Email</Form.Label>
@@ -50,8 +48,7 @@ function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </Form.Group>
- 
+            </Form.Group> 
             <Form.Group size='lg' controlId='password' className='formGroup'>
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -68,7 +65,7 @@ function Login() {
  
           <div className='bottomText'>Don't you have an account ? </div>  <Link className='loginLink' to='/signup'> sign up </Link>
 
-        </Container>
+      
       </div>
 
       <Toast show={showToggle} description={'Error occurred while login'} toggleshow={toggleshow} />

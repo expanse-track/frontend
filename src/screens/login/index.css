@@ -2,16 +2,21 @@
   width: 80%;
   margin: auto;
   border: 1px solid rgb(226, 223, 223); 
-  padding: 10px;
-  border-radius: 10px;
-  position: relative;
-  top: 300px;
-  max-width: 500px!important;
+  padding: 20px!important;
+  border-radius: 8px!important; 
+  position: relative; 
+  max-width: 500px!important; 
+ 
 }
-.loginHeader{
-  font-size: 18px;
-  padding-top: 10px; 
+.loginHeader{ 
+  padding-top: 10px;  
+  font-weight: bold;
+  font-size: 30px!important;
 }
+
+.loginDescripation{   
+  font-weight: lighter;
+  font-size: 20px!important;}
 
 .formGroup{
   margin-top: 25px; 
@@ -32,3 +37,4 @@
   color: blue;
   cursor: default;
 }
+ 

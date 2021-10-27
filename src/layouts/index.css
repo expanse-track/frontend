@@ -2,4 +2,10 @@
   top: 0px;
   position: sticky;
   z-index: 10;
+  height: 70px;
+}
+
+.nav-link{
+  font-size: 20px;
+  font-weight: normal;
 }

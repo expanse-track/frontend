@@ -14,19 +14,23 @@ const AppNavBar = ({ children }) => {
 
     return (
         <div>
-            <Navbar bg='dark' variant='dark' className='navBar'>
+            <Navbar bg='dark' variant='dark'  collapseOnSelect  fixed="top"
+       className="bg-light navBar justify-content-between"  >
                 <Container>
                     <Navbar.Brand href='#home'>XYZ Todos</Navbar.Brand>
-                    <Nav className='me-auto'>
-                        <NavItem>
-                            <Link className='nav-link' to='/home'>Home</Link>
+                    <Nav className='me-auto '>
+                        <NavItem className='m-auto'>
+                            <Link className='nav-link' to='/home'>Overview</Link>
                         </NavItem>
                         <NavItem>
-                            <Link className='nav-link' to='/history'>History</Link>
+                            <Link className='nav-link' to='/history'>Expensas</Link>
                         </NavItem>
                         <NavItem>
-                            <Link className='nav-link' to='/summary'>Summary</Link>
+                            <Link className='nav-link' to='/summary'>Income</Link>
                         </NavItem>
+                        {/* <NavItem>
+                            <Link className='nav-link' to='/summary'>Budget</Link>
+                        </NavItem> */}
                         <NavItem>
                             <Link className='nav-link' onClick={logout} >Logout</Link>
                         </NavItem>

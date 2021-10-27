@@ -1,4 +1,5 @@
 import { Switch, BrowserRouter } from 'react-router-dom';
+import './app.css';
 
 //screens
 import Login from './screens/login/login';

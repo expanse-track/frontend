@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "brandon-grotesque";
+  src: local("brandon-grotesque"),
+    url("./assets/fonts/brandon-grotesque-black.otf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+    font-family: "brandon-grotesque";
+    src: local("brandon-grotesque"),
+      url("./assets/fonts/brandon-grotesque-light.otf") format("truetype");
+    font-weight: lighter;
+  }
+  
+
+  *{
+      
+  font-family: 'brandon-grotesque';
+  }

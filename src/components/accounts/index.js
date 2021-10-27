@@ -25,7 +25,7 @@ const Accounts = () => {
       <div className="accountTableHeaderText">
         Accounts </div>
         <div className="accountTableHeaderButton"> 
-        <NewAccountModalLauncher/></div>
+        <NewAccountModalLauncher rerenderTable={fetchAndSetAccounts}/></div>
 
       </div>
       <Table >

@@ -1,5 +1,35 @@
+ 
+
 .btnAddAccount {
   color: #ffffff !important;
   background-color: #07963f !important;
   border: none !important;
+}
+
+.btnAddAccount:focus , .btn-primary:focus-visible  { 
+  box-shadow: none !important;
+}
+
+ 
+
+.addNewAccountModal{
+.modal-content{ 
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  border: none; 
+}
+
+  .header{
+    position: relative; 
+    background-color:#07963f;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 2.5px 0 2.5px 0
+  }
+
+  .content{
+    padding:10px
+  }
 }

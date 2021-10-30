@@ -102,3 +102,13 @@ export const fetchAllAccounts  = async () => {
         'accounts/get',
     );
 };
+
+
+export const createNewAccount  = async ({name , type , balance}) => {
+    console.log(name , type , balance)
+    return await performRequest(
+        'POST',
+        'accounts/add',
+        {name , type , balance}
+    );
+};

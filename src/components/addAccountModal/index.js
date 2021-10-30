@@ -20,8 +20,16 @@ const NewAccountModal = ({ show, handleClose, handleRerendering }) => {
         animation={true}
         className="addNewAccountModal"
       >
-        <div className="header"> Add  account </div>
-        <div className="content"> Add new account</div>
+        <div className="header"> Add account </div>
+        <div className="content">
+          Add new account
+          <div className="inputWrapper">
+            <div className="inputHeader">Name</div>
+            <div className="inputContaner">
+              <input />
+            </div>
+          </div>
+        </div>
       </Modal>
     </>
   );
@@ -31,7 +39,7 @@ const NewAccountModalLauncher = ({ rerenderTable }) => {
   const [show, setShow] = useState(false);
   return (
     <>
-      <Button className={"btnAddAccount"} onClick={() => setShow(!show)}> 
+      <Button className={"btnAddAccount"} onClick={() => setShow(!show)}>
         Add account
       </Button>
       <NewAccountModal

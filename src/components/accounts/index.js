@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { fetchAllAccounts } from "../../helpers/apiHelper";
+import { deleteAccount, fetchAllAccounts } from "../../helpers/apiHelper";
 import Button from 'react-bootstrap/Button'
 import "./index.scss";
 import NewAccountModalLauncher from "../addAccountModal";
@@ -17,7 +17,7 @@ const Accounts = () => {
 
   useEffect(() => {
     fetchAndSetAccounts();
-  }, []);
+  }, []); 
 
   return (
     <div className="accountTable">
@@ -81,7 +81,11 @@ const Accounts = () => {
                     className="actionDropDown"
                   >
                     <Dropdown.Item>edit</Dropdown.Item>
-                    <Dropdown.Item>delete</Dropdown.Item>
+                    <Dropdown.Item onClick={()=>{
+                      deleteAccount(account._id).then(()=>{
+                        fetchAndSetAccounts();
+                      }); 
+                    }} >delete</Dropdown.Item>
                   </DropdownButton>
                 </td>
               </tr>

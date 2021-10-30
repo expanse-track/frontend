@@ -112,3 +112,11 @@ export const createNewAccount  = async ({name , type , balance}) => {
         {name , type , balance}
     );
 };
+
+
+export const deleteAccount  = async (id) => {
+    return await performRequest(
+        'DELETE',
+        `accounts/delete/${id}`,
+    );
+};

@@ -5,7 +5,7 @@ import { deleteAccount, fetchAllAccounts } from "../../helpers/apiHelper";
 import Button from 'react-bootstrap/Button'
 import "./index.scss";
 import NewAccountModalLauncher from "../addAccountModal";
- 
+
 const Accounts = () => {
   const [state, setstate] = useState([]);
 
@@ -17,15 +17,15 @@ const Accounts = () => {
 
   useEffect(() => {
     fetchAndSetAccounts();
-  }, []); 
+  }, []);
 
   return (
     <div className="accountTable">
       <div className="accountTableHeader">
-      <div className="accountTableHeaderText">
-        Accounts </div>
-        <div className="accountTableHeaderButton"> 
-        <NewAccountModalLauncher rerenderTable={fetchAndSetAccounts}/></div>
+        <div className="accountTableHeaderText">
+          Accounts </div>
+        <div className="accountTableHeaderButton">
+          <NewAccountModalLauncher rerenderTable={fetchAndSetAccounts} /></div>
 
       </div>
       <Table >
@@ -80,11 +80,13 @@ const Accounts = () => {
                     title="Actions"
                     className="actionDropDown"
                   >
+
+                    {account.active ? (<Dropdown.Item>Deactivate</Dropdown.Item>) : (<Dropdown.Item>Activate</Dropdown.Item>)}
                     <Dropdown.Item>edit</Dropdown.Item>
-                    <Dropdown.Item onClick={()=>{
-                      deleteAccount(account._id).then(()=>{
+                    <Dropdown.Item onClick={() => {
+                      deleteAccount(account._id).then(() => {
                         fetchAndSetAccounts();
-                      }); 
+                      });
                     }} >delete</Dropdown.Item>
                   </DropdownButton>
                 </td>

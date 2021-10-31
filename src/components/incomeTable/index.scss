@@ -1,0 +1,101 @@
+.accountTableHeaderText{
+  font-weight: bold;
+  font-size: 20px;
+  padding: 12px;  
+  width: 50%!important;
+  display: inline-block;
+}
+
+.accountTableHeaderButton{ 
+  font-weight: bold;
+  font-size: 20px;
+  padding: 12px; 
+  width: 50%!important;
+  display: inline-block;
+  text-align: right; 
+}
+ 
+.accountTable {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+  background-color: white;
+  max-width: 1000px;
+}
+
+.accountTableItemHeader {
+  font-weight: bold;
+  font-size: 14px;
+}
+.accountTableItemSubHeader {
+  font-size: 14px;
+  color: #b9b6b6;
+}
+
+.activeIndicaterText {
+  position: relative;
+  top: 1px;
+  font-weight: bold;
+  color: #07963f;
+  display: inline-block;
+}
+.activeIndicater {
+  text-align: center;
+  border-radius: 10px;
+  height: 14px;
+  width: 14px;
+  background-color: #07963f;
+  position: relative;
+  top: 3px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.inactiveIndicaterText {
+  position: relative;
+  top: 1px;
+  text-align: center;
+  font-weight: bold;
+  color: red;
+  display: inline-block;
+}
+
+.inactiveIndicater {
+  text-align: center;
+  border-radius: 10px;
+  height: 14px;
+  width: 14px;
+  background-color: red;
+  position: relative;
+  top: 3px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.dropDownContainerDiv{
+  width:85px!important;
+}
+
+.actionDropDown{
+  .btn-primary{
+    color:#818181!important;
+    background-color: #F5F5F5!important;
+    border: none!important;
+  }
+  .btn-primary:focus,  .btn-primary:focus-visible {
+    border: none!important;
+    box-shadow:none!important; 
+  } 
+}
+
+.incomeTableHead{ 
+  border-top: none;
+  padding-top:5px!important;
+  padding-bottom:5px!important;
+  padding-left:0px!important;
+  td{
+    border-top: none;
+    padding-top:5px!important;
+    padding-bottom:5px!important;
+  }
+}

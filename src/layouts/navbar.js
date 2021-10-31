@@ -27,12 +27,12 @@ const AppNavBar = ({ children }) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-link" to="/history">
-                Expensas
+              <Link className="nav-link" to="/expense">
+                Expense
               </Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-link" to="/summary">
+              <Link className="nav-link" to="/income">
                 Income
               </Link>
             </NavItem>

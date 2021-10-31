@@ -1,0 +1,123 @@
+import React, { useEffect, useState } from "react";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
+import { deleteAccount, fetchAllAccounts, editAccount } from "../../helpers/apiHelper";
+import "./index.scss";
+import NewAccountModalLauncher from "../addAccountModal";
+import EditAccountModal from "../editAccountModal"
+import { useDispatch, useSelector } from "react-redux";
+import { removeAccount, setAccounts } from "../../state/actions/account";
+import { setIntent } from "../../state/actions/intent";
+
+const Accounts = () => {
+  //load redux state and dispather
+  const accounts = useSelector(state => state.account.accounts).sort(function (a, b) {
+    return new Date(a.updatedOn) - new Date(b.updatedOn);
+  });
+
+  const dispatch = useDispatch();
+
+  //fetch account and set state
+  const fetchAndSetAccounts = () => {
+    fetchAllAccounts().then((res) => {
+      dispatch({ type: setAccounts, payload: res })
+    });
+  };
+
+  //fetch accounts on page load
+  useEffect(() => {
+    fetchAndSetAccounts();
+  }, []);
+
+  //show edit account related state
+  const [editAccountModal, setEditAccountModal] = useState({
+    id: "",
+    show: false
+  })
+
+  // toggle the visibility of the edit modal\
+  const toggleEditModal = () => {
+    setEditAccountModal({ ...editAccountModal, show: !editAccountModal.show })
+  }
+
+
+
+  return (
+    <> <div className="accountTable">
+      <div className="accountTableHeader">
+        <div className="accountTableHeaderText">
+          Income Records </div>
+        <div className="accountTableHeaderButton">
+          <NewAccountModalLauncher rerenderTable={fetchAndSetAccounts} /></div>
+
+      </div>
+      <Table >
+        <tbody>
+          <th className="incomeTableHead">
+            <td>Name</td>
+          </th>
+          <th className="incomeTableHead">
+            <td>Amount</td>
+          </th>
+          <th className="incomeTableHead">
+            <td>Date</td>
+          </th>
+          <th className="incomeTableHead">
+            <td></td>
+          </th>
+          {accounts.map((account) => {
+
+            return (
+              <tr key={account._id}>
+                <td>
+                  <div className="accountTableItemHeader"> {account.name} </div>
+                   
+                </td>
+                <td>
+                  <div className="accountTableItemHeader">
+                    $ {account.balance}
+                  </div> 
+                </td>
+
+
+
+                <td>
+                  <div className="accountTableItemHeader">
+                    {new Date(account.updatedOn).toDateString()}
+                  </div> 
+                </td>
+
+
+
+                <td className="dropDownContainerDiv">
+                  <DropdownButton
+                    id="dropdown-basic-button"
+                    title="Actions"
+                    className="actionDropDown"
+                  >
+
+
+
+                    <Dropdown.Item onClick={() => {
+                      dispatch({ type: setIntent, payload: { key: "editAccount", value: account } })
+                      toggleEditModal()
+                    }} >Edit</Dropdown.Item>
+                    <Dropdown.Item onClick={() => {
+                      deleteAccount(account._id).then(() => {
+                        dispatch({ type: removeAccount, payload: account })
+                      });
+                    }} >Delete</Dropdown.Item>
+                  </DropdownButton>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
+      <EditAccountModal show={editAccountModal.show} toggleModal={toggleEditModal} />
+    </>
+  );
+};
+
+export default Accounts;

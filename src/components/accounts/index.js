@@ -1,42 +1,46 @@
-import React, { useEffect,   useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { deleteAccount, fetchAllAccounts } from "../../helpers/apiHelper";
+import { deleteAccount, fetchAllAccounts  , editAccount} from "../../helpers/apiHelper";
 import "./index.scss";
 import NewAccountModalLauncher from "../addAccountModal";
 import EditAccountModal from "../editAccountModal"
 import { useDispatch, useSelector } from "react-redux";
-import { removeAccount, setAccounts } from "../../state/actions/account"; 
+import { changeAccount, removeAccount, setAccounts } from "../../state/actions/account";
+import { setIntent } from "../../state/actions/intent";
 
 const Accounts = () => {
-const accounts = useSelector(state => state.account)
-  const dispatch = useDispatch();
-  const [state, setstate] = useState([]);
-
-  //edit account relatedState 
-  const [account, setAccount] = useState({
-    name: "",
-    id: "",
-    type: "",
-    balance: "",
-    show:false
+  //load redux state and dispather
+  const accounts = useSelector(state => state.account.accounts).sort(function (a, b) {
+    return new Date(a.updatedOn) - new Date(b.updatedOn);
   });
 
-  const closeEditModal = () =>{
-    setAccount({...account , show: false})
-  }
+  const dispatch = useDispatch();
 
-
+  //fetch account and set state
   const fetchAndSetAccounts = () => {
     fetchAllAccounts().then((res) => {
-      setstate(res);
       dispatch({ type: setAccounts, payload: res })
     });
   };
 
+  //fetch accounts on page load
   useEffect(() => {
     fetchAndSetAccounts();
   }, []);
+
+  //show edit account related state
+  const [editAccountModal, setEditAccountModal] = useState({
+    id: "",
+    show: false
+  })
+
+  // toggle the visibility of the edit modal\
+  const toggleEditModal = () => {
+    setEditAccountModal({ ...editAccountModal, show: !editAccountModal.show })
+  }
+
+
 
   return (
     <> <div className="accountTable">
@@ -48,8 +52,8 @@ const accounts = useSelector(state => state.account)
 
       </div>
       <Table >
-        <tbody> 
-          {accounts.accounts.map((account) => {
+        <tbody>
+          {accounts.map((account) => {
             return (
               <tr key={account._id}>
                 <td>
@@ -100,15 +104,29 @@ const accounts = useSelector(state => state.account)
                     className="actionDropDown"
                   >
 
-                    {account.active ? (<Dropdown.Item>Deactivate</Dropdown.Item>) : (<Dropdown.Item>Activate</Dropdown.Item>)}
-                    <Dropdown.Item onClick={() => {
-                      setAccount({ ...account , show:true})
+                    {account.active ? (<Dropdown.Item
 
+                      onClick={() => {
+                        dispatch({ type: changeAccount, payload: { ...account, active: false } })
+                        editAccount(account._id, { active: false });
+                      }}
+
+                    >Deactivate</Dropdown.Item>) : (<Dropdown.Item
+
+                      onClick={() => {
+                        dispatch({ type: changeAccount, payload: { ...account, active: true } });
+                        editAccount(account._id, { active: true });
+                      }}
+                    >Activate</Dropdown.Item>)}
+
+
+                    <Dropdown.Item onClick={() => {
+                      dispatch({ type: setIntent, payload: { key: "editAccount", value: account } })
+                      toggleEditModal()
                     }} >Edit</Dropdown.Item>
                     <Dropdown.Item onClick={() => {
                       deleteAccount(account._id).then(() => {
-                        dispatch({ type: removeAccount, payload:account })
-                        // fetchAndSetAccounts();
+                        dispatch({ type: removeAccount, payload: account })
                       });
                     }} >Delete</Dropdown.Item>
                   </DropdownButton>
@@ -119,7 +137,7 @@ const accounts = useSelector(state => state.account)
         </tbody>
       </Table>
     </div>
-      <EditAccountModal show={account.show} handleClose={closeEditModal} modalData={account} />
+      <EditAccountModal show={editAccountModal.show} toggleModal={toggleEditModal} />
     </>
   );
 };

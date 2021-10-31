@@ -120,3 +120,12 @@ export const deleteAccount  = async (id) => {
         `accounts/delete/${id}`,
     );
 };
+
+export const editAccount  = async (id  ,data) => {
+    console.log(JSON.stringify(data))
+    return await performRequest(
+        'PUT',
+        `accounts/update/${id}`,
+        {...data}
+    );
+};

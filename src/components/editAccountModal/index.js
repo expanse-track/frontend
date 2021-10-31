@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "./index.scss";
-import { createNewAccount } from "../../helpers/apiHelper";
+import { editAccount } from "../../helpers/apiHelper";
+import { useDispatch, useSelector } from "react-redux";
+import { changeAccount } from "../../state/actions/account";
 
-const EditAccountModal = ({ show = false, handleClose, handleRerendering   , modalData }) => {
- 
+const EditAccountModal = ({ show = false, toggleModal }) => {
+  const stateData = useSelector(state => state.intent.intents.editAccount)
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
-    id:"",
-    name:"" ,
-    type:""  ,
-    balance:0 ,
-    show ,
-    ...modalData 
+    name: "",
+    type: "",
+    balance: 0,
+    updatedOn: new Date(),
+    show,
   });
 
- 
+  useEffect(() => {
+    setFormData({ ...formData, ...stateData })
+  }, [show])
 
   const setData = (key, value) => {
     setFormData({ ...formData, [key]: value });
@@ -25,19 +29,20 @@ const EditAccountModal = ({ show = false, handleClose, handleRerendering   , mod
       <Modal
         centered
         show={show}
-        onHide={handleClose}
+        onHide={toggleModal}
         animation={true}
         className="editAccountModal"
       >
-        <div className="header"> Add account </div>
+        <div className="header"> Edit account </div>
         <div className="content">
-          Add new account to the list
+          Edit existing account
 
           {/* Name  */}
           <div className="inputWrapper">
             <div className="inputHeader">Name</div>
             <div className="inputContaner">
-              <input className="input" onChange={(e) => { setData("name", e.target.value) }} value={formData.name} />
+              <input className="input" onChange={(e) => { setData("name", e.target.value) }}
+                value={(formData.name == 0 && stateData != undefined) ? stateData.name : formData.name} />
             </div>
           </div>
 
@@ -48,7 +53,7 @@ const EditAccountModal = ({ show = false, handleClose, handleRerendering   , mod
             <div className="inputHeader">Type</div>
             <div className="inputContaner">
 
-              <select name="cars" className="input" onChange={(e) => { setData("type", e.target.value) }} value={formData.type}>
+              <select name="cars" className="input" onChange={(e) => { setData("type", e.target.value) }} value={(formData.type == "" && stateData != undefined) ? stateData.type : formData.balance} >
                 <option value="Debit card">Debit card</option>
                 <option value="Credit card">Credit card</option>
                 <option value="Bank account">Bank account</option>
@@ -65,26 +70,29 @@ const EditAccountModal = ({ show = false, handleClose, handleRerendering   , mod
           <div className="inputWrapper">
             <div className="inputHeader">Balance</div>
             <div className="inputContaner">
-              <input className="input" type="number" onChange={(e) => { setData("balance", Number(e.target.value)) }} value={formData.balance} />
+              <input className="input" type="number"
+                onChange={(e) => { setData("balance", Number(e.target.value)) }} value={(formData.balance == 0 && stateData != undefined) ? stateData.balance : formData.balance} />
             </div>
           </div>
 
 
           <div className="buttonBar">
             <div className="buttonWrapper">
-              <Button className={"btnClose"} onClick={()=>handleClose()}>
+              <Button className={"btnClose"} onClick={() => toggleModal()}>
                 Close
               </Button>
             </div>
 
             <div className="buttonWrapper">
               <Button className={"btnAddAccount"} onClick={() => {
-                createNewAccount({ ...formData }); 
-                handleClose();
+                editAccount(stateData._id, formData);
+                // alert(stateData._id)
+                dispatch({type:changeAccount , payload: formData})
+                toggleModal();
               }
 
               } >
-                Add account
+                Edit
               </Button>
             </div>
           </div>
@@ -93,6 +101,6 @@ const EditAccountModal = ({ show = false, handleClose, handleRerendering   , mod
     </>
   );
 };
- 
+
 
 export default EditAccountModal;

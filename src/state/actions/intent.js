@@ -1,0 +1,1 @@
+export const setIntent = "SET_INTENT"

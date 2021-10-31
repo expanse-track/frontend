@@ -13,8 +13,7 @@ const Index = ({ id, title }) => {
   const handleClose = () => setShow(false);
 
   const handleSubmit = () => {
-    deleteTodo(id).then(res => {
-      
+    deleteTodo(id).then(res => { 
     console.log(res)
       dispatch({ type: removeTodo, payload: res })
       setShow(false);

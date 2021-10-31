@@ -3,16 +3,20 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "./index.scss";
 import { createNewAccount } from "../../helpers/apiHelper";
-import { useDispatch } from "react-redux";
-import { addAccount } from "../../state/actions/account";
 
-const NewAccountModal = ({ show, handleClose}) => {
-  const dispatch = useDispatch();
+const EditAccountModal = ({ show = false, handleClose, handleRerendering   , modalData }) => {
+ 
   const [formData, setFormData] = useState({
-    name: "",
-    type: "",
-    balance: 0
-  }); 
+    id:"",
+    name:"" ,
+    type:""  ,
+    balance:0 ,
+    show ,
+    ...modalData 
+  });
+
+ 
+
   const setData = (key, value) => {
     setFormData({ ...formData, [key]: value });
   };
@@ -23,7 +27,7 @@ const NewAccountModal = ({ show, handleClose}) => {
         show={show}
         onHide={handleClose}
         animation={true}
-        className="addNewAccountModal"
+        className="editAccountModal"
       >
         <div className="header"> Add account </div>
         <div className="content">
@@ -68,17 +72,14 @@ const NewAccountModal = ({ show, handleClose}) => {
 
           <div className="buttonBar">
             <div className="buttonWrapper">
-              <Button className={"btnClose"} onClick={handleClose}>
+              <Button className={"btnClose"} onClick={()=>handleClose()}>
                 Close
               </Button>
             </div>
 
             <div className="buttonWrapper">
               <Button className={"btnAddAccount"} onClick={() => {
-                createNewAccount({ ...formData }).then(res=>{ 
-                  dispatch({type:addAccount , payload:res}) 
-                }); 
-                setFormData({});
+                createNewAccount({ ...formData }); 
                 handleClose();
               }
 
@@ -92,23 +93,6 @@ const NewAccountModal = ({ show, handleClose}) => {
     </>
   );
 };
+ 
 
-const NewAccountModalLauncher = ( ) => {
-  const [show, setShow] = useState(false);
-  return (
-    <>
-      <Button className={"btnAddAccount"} onClick={() => setShow(!show)}>
-        Add account
-      </Button>
-      <NewAccountModal
-        show={show}
-        handleClose={() => {
-          setShow(false);
-        }}
-       
-      />
-    </>
-  );
-};
-
-export default NewAccountModalLauncher;
+export default EditAccountModal;

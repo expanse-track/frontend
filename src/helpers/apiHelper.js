@@ -129,3 +129,12 @@ export const editAccount  = async (id  ,data) => {
         {...data}
     );
 };
+
+
+
+export const fetchAllExpenses  = async () => {
+    return await performRequest(
+        'GET',
+        'transactions/getExpense',
+    );
+};

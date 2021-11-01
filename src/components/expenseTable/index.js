@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { deleteAccount, fetchAllAccounts, editAccount } from "../../helpers/apiHelper";
+import { deleteAccount, fetchAllExpenses } from "../../helpers/apiHelper";
 import "./index.scss";
-import NewAccountModalLauncher from "../addAccountModal";
+import AddExpenseModalModalLauncher from "../addExpenseModal";
 import EditAccountModal from "../editAccountModal"
 import { useDispatch, useSelector } from "react-redux";
 import { removeAccount, setAccounts } from "../../state/actions/account";
 import { setIntent } from "../../state/actions/intent";
+import { setExpenses } from "../../state/actions/expense";
 
 const Accounts = () => {
   //load redux state and dispather
-  const accounts = useSelector(state => state.account.accounts).sort(function (a, b) {
+  const accounts = useSelector(state => state.expense.expenses).sort(function (a, b) {
     return new Date(a.updatedOn) - new Date(b.updatedOn);
   });
 
@@ -19,8 +20,9 @@ const Accounts = () => {
 
   //fetch account and set state
   const fetchAndSetAccounts = () => {
-    fetchAllAccounts().then((res) => {
-      dispatch({ type: setAccounts, payload: res })
+    fetchAllExpenses().then((res) => {
+      console.log(res)
+      dispatch({ type: setExpenses, payload: res })
     });
   };
 
@@ -48,7 +50,7 @@ const Accounts = () => {
         <div className="accountTableHeaderText">
           Expense Records </div>
         <div className="accountTableHeaderButton">
-          <NewAccountModalLauncher rerenderTable={fetchAndSetAccounts} /></div>
+          <AddExpenseModalModalLauncher rerenderTable={fetchAndSetAccounts} /></div>
 
       </div>
       <Table >
@@ -71,20 +73,20 @@ const Accounts = () => {
               <tr key={account._id}>
                 <td>
                   <div className="accountTableItemHeader"> {account.name} </div>
-
+                   
                 </td>
                 <td>
                   <div className="accountTableItemHeader">
-                    $ {account.balance}
-                  </div>
+                    $ {account.amount}
+                  </div> 
                 </td>
 
 
 
                 <td>
                   <div className="accountTableItemHeader">
-                    {new Date(account.updatedOn).toDateString()}
-                  </div>
+                    {new Date(account.date).toDateString()}
+                  </div> 
                 </td>
 
 

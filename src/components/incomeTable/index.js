@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { deleteAccount, fetchAllAccounts, editAccount } from "../../helpers/apiHelper";
+import { deleteAccount, fetchAllAccounts, editAccount, fetchAllExpenses } from "../../helpers/apiHelper";
 import "./index.scss";
 import NewAccountModalLauncher from "../addAccountModal";
 import EditAccountModal from "../editAccountModal"
 import { useDispatch, useSelector } from "react-redux";
 import { removeAccount, setAccounts } from "../../state/actions/account";
 import { setIntent } from "../../state/actions/intent";
+import { setExpenses } from "../../state/actions/expense";
 
 const Accounts = () => {
   //load redux state and dispather
@@ -19,8 +20,8 @@ const Accounts = () => {
 
   //fetch account and set state
   const fetchAndSetAccounts = () => {
-    fetchAllAccounts().then((res) => {
-      dispatch({ type: setAccounts, payload: res })
+    fetchAllExpenses().then((res) => {
+      dispatch({ type: setExpenses, payload: res })
     });
   };
 

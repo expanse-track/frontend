@@ -129,12 +129,28 @@ export const editAccount  = async (id  ,data) => {
         {...data}
     );
 };
-
-
+ 
 
 export const fetchAllExpenses  = async () => {
     return await performRequest(
         'GET',
         'transactions/getExpense',
+    );
+};
+ 
+export const createNewExpense  = async (data) => {
+    console.log(data)
+    return await performRequest(
+        'POST',
+        'transactions/add',
+        { ...data, type:"expense" }
+    );
+};
+
+
+export const deleteTransaction  = async (id) => {
+    return await performRequest(
+        'DELETE',
+        `transactions/delete/${id}`,
     );
 };
